@@ -55,15 +55,19 @@ Following subsequent runs, Response Group Workflows do not need to be updated as
 ## Examples
 #### EXAMPLE
 `.\Set-AusGovHolidays.ps1 -Action Create`
+
 Detect pools where Skype for Business hosts Australian Response Group Workflows and Create new sets
 #### EXAMPLE
 `.\Set-AusGovHolidays.ps1 -Action Create -poolFQDN pool.contoso.com`
+
 Create new holiday sets on a specified pool
 #### EXAMPLE
 `.\Set-AusGovHolidays.ps1 -Action Update -poolFQDN pool.contoso.com -XMLFile c:\file.xml`
+
 Update existing holiday sets on a specified pool and use an offline XML file
 #### EXAMPLE
 `.\Set-AusGovHolidays.ps1 -Action Update -HideOutput -Mailoutput -NotificationEmail leigh@wespeakbinary.com.au -SMTPServer relay.wespeakbinary.com.au`
+
 Update existing holiday sets on all auto-detected pools and send output via email to leigh@wespeakbinary.com.au
 ### INPUTS
 The script does not support piped input
