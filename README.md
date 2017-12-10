@@ -12,15 +12,15 @@ This script creates or updates - based on whether they exist - a Response Group 
 
 ## DESCRIPTION
 On first run, this script will:
-    *Download a modified version of the [Australian Government's XML holiday list](http://www.australia.gov.au/about-australia/special-dates-and-events/public-holidays) from [http://code.wespeakbinary.com.au/holidays.html](http://code.wespeakbinary.com.au/holidays.html)
-    *Create a holiday set for each state, for example, "NSW Holidays (AusGov)." AusGov is used as a marker to denote sets created by this script.
-    *Create holidays in each set based on the content in the XML file
++ Download a modified version of the [Australian Government's XML holiday list](http://www.australia.gov.au/about-australia/special-dates-and-events/public-holidays) from [http://code.wespeakbinary.com.au/holidays.html](http://code.wespeakbinary.com.au/holidays.html)
++ Create a holiday set for each state, for example, "NSW Holidays (AusGov)." AusGov is used as a marker to denote sets created by this script.
++ Create holidays in each set based on the content in the XML file
 Once created, holiday sets can be assigned to Response Group workflows to handle holidays.
 As the XML file offered by the Australian Government is updated periodically, this script is designed to update Holiday Sets with newly published information.
 When run subsequently, either manually or via a scheduled task, the script will:
-    *Download the latest copy of the Australian Government's holiday list
-    *Clear the contents of the existing "AusGov" Holiday Sets
-    *Populate the existing sets with the updated holidays
++ Download the latest copy of the Australian Government's holiday list
++ Clear the contents of the existing "AusGov" Holiday Sets
++ Populate the existing sets with the updated holidays
 Following subsequent runs, Response Group Workflows do not need to be updated as the names of the Holiday Sets does not change.
 
 ## Parameters
