@@ -251,14 +251,12 @@ function Display-Holidays {
 
 
 # Construct HTML components for display/email
-if ($mailoutput -eq $true or $Hideoutput -eq $false) {
-    $a = "<style>"
-    $a = $a + "BODY{background-color:#ffffff;}"
-    $a = $a + "TABLE{border-width: 1px;border-style: solid;border-color: black;border-collapse: collapse;}"
-    $a = $a + "TH{border-width: 1px;padding: 1px;border-style: solid;border-color: black;}"
-    $a = $a + "TD{border-width: 1px;padding: 5px;border-style: solid;border-color: black;}"
-    $a = $a + "</style>"
-}
+$a = "<style>"
+$a = $a + "BODY{background-color:#ffffff;}"
+$a = $a + "TABLE{border-width: 1px;border-style: solid;border-color: black;border-collapse: collapse;}"
+$a = $a + "TH{border-width: 1px;padding: 1px;border-style: solid;border-color: black;}"
+$a = $a + "TD{border-width: 1px;padding: 5px;border-style: solid;border-color: black;}"
+$a = $a + "</style>"
 
 # Main program loop
 
