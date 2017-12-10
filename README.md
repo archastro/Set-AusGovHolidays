@@ -2,13 +2,13 @@
 This script creates or updates - based on whether they exist - a Response Group Holiday set for each Australian state, based on data from the Australian Government website.
 
 ## Version History
-*v1.5 - Migrate XML file to a host managed by me so that it can be modified, and update the script to use the additional fields. This is due to the fact that some holidays are marked as only running from 7pm until midnight, and one holiday (Easter Tuesday in Tasmania) is Government only.As a bonus, this may allow the XML file to be extended to include additional jurisdictions (e.g. New Zealand) in future.
-*v1.4 - Rewrote main program loop and pulled some tasks out in to functions
-*V1.3 - Added the option to specify a poolFQDN for large deployments as the automatic detection script could have performance issues. Added -DisplayOutput option to show an Out-Gridview of the created holidays.
-*V1.2 - Script now detects date format (dd/MM/yyyy or MM/dd/yyyy) and rewrites the dates listed in the XML file to match the server's current date format.
-*V1.1 - Modify popups to be more descriptive, target only pools which host workflows with a +61 LineURI
-*V1.0 - Updated script tested and verified in a production environment
-*V0.9 - Initial script tested and verified in a lab environment
++ v1.5 - Migrate XML file to a host managed by me so that it can be modified, and update the script to use the additional fields. This is due to the fact that some holidays are marked as only running from 7pm until midnight, and one holiday (Easter Tuesday in Tasmania) is Government only.As a bonus, this may allow the XML file to be extended to include additional jurisdictions (e.g. New Zealand) in future.
++ v1.4 - Rewrote main program loop and pulled some tasks out in to functions
++ V1.3 - Added the option to specify a poolFQDN for large deployments as the automatic detection script could have performance issues. Added -DisplayOutput option to show an Out-Gridview of the created holidays.
++ V1.2 - Script now detects date format (dd/MM/yyyy or MM/dd/yyyy) and rewrites the dates listed in the XML file to match the server's current date format.
++ V1.1 - Modify popups to be more descriptive, target only pools which host workflows with a +61 LineURI
++ V1.0 - Updated script tested and verified in a production environment
++ V0.9 - Initial script tested and verified in a lab environment
 
 ## DESCRIPTION
 On first run, this script will:
