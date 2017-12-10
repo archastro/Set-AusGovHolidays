@@ -231,51 +231,17 @@ function Display-Holidays {
 }
 
 
-# Main Program Loop
+# Construct HTML components for display/email
+if ($mailoutput -eq $true or $Hideoutput -eq $false) {
+    $a = "<style>"
+    $a = $a + "BODY{background-color:#ffffff;}"
+    $a = $a + "TABLE{border-width: 1px;border-style: solid;border-color: black;border-collapse: collapse;}"
+    $a = $a + "TH{border-width: 1px;padding: 1px;border-style: solid;border-color: black;}"
+    $a = $a + "TD{border-width: 1px;padding: 5px;border-style: solid;border-color: black;}"
+    $a = $a + "</style>"
+}
 
-# Test to see if there are response groups
-#if (($workflows | measure).count -eq 0) {
-#    throw "No Response Groups have been defined in this environment. Please create some."
-#    } else {
-#    Write-Host "Response Groups exist. Proceeding" -ForegroundColor Green
-#
-#    if (($allsets | Where-Object {$_.Name -like "*AusGov*"}| measure).count -ne 0) {
-#        # Notification Pop
-#        $a = new-object -comobject wscript.shell
-#        $intAnswer = $a.popup("Your environment already has the AusGov Holiday Sets deployed.`nThis script will remove existing holidays and replace them with new ones.`n`n Proceed?", `
-#        0,"Update Start",4)
-#        If ($intAnswer -eq 6) {
-#            write-host "Holiday sets have previously been added. Injecting new holidays (if any) to existing sets." -ForegroundColor Yellow
-#            Update-Holidays
-#            if ($HideOutput -ne $true) {
-#                Display-Holidays| Sort-Object StartDate | Out-GridView -Title "Currently Deployed RGS Holidays"
-#            }
-#        } else {
-#          $a.popup("Holiday Set Update Aborted",0,"Update Aborted")
-#        }
-#    } else {
-#        # Notification Pop
-#        $a = new-object -comobject wscript.shell
-#        $intAnswer = $a.popup("This script will create new holiday sets based on data from the Australian Government website.`n`n Proceed?", `
-#        0,"Install Start",4)
-#        If ($intAnswer -eq 6) {
-#            write-host "No holiday sets have been created. Creating new sets based on XML file." -ForegroundColor Yellow
-#            Create-Holidays
-#            if ($DisplayOutput -eq $true) {
-#                Display-Holidays| Sort-Object StartDate | Out-GridView -Title "Currently Deployed RGS Holidays"
-#            }
-#        } else {
-#          $a.popup("Holiday Set Install Aborted",0,"Install Aborted")
-#        }
-#    }
-#
-#}
-$a = "<style>"
-$a = $a + "BODY{background-color:#ffffff;}"
-$a = $a + "TABLE{border-width: 1px;border-style: solid;border-color: black;border-collapse: collapse;}"
-$a = $a + "TH{border-width: 1px;padding: 1px;border-style: solid;border-color: black;}"
-$a = $a + "TD{border-width: 1px;padding: 5px;border-style: solid;border-color: black;}"
-$a = $a + "</style>"
+# Main program loop
 
 if ($Action.Equals('Update') -eq $true) {
         Update-Holidays
