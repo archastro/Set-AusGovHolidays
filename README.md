@@ -25,18 +25,31 @@ Following subsequent runs, Response Group Workflows do not need to be updated as
 
 ## Parameters
 `-Action [Create/Update]`
+
     Declare whether the script should create new sets or Update existing sets
+    
 `-PoolFQDN [String] `
+
     Specify a pool on which to update holiday sets
+    
 `-XMLFile [File location] `
+
     If your server does not have access to download the XML file, you may provide it here
+    
 `-HideOutput [switch] `
+
     Once complete, the script will display a new IE window with a list of all created holidays unless this switch is invoked
+    
 `-MailOutput [switch] `
+
     Once complete, the script will mail an HTML file with holiday set details if this switch is invoked. Requires -notificationemail and -smtpserver for sending
+    
 `-NotificationEmail `
+
     When -Mailoutput is selected, email address to which the script will send its HTML output
+    
 `-SMTPServer `
+
     When -MailOutput is selected, this unauthenticated SMTP Relay will be used to send the email
     
 ## Examples
