@@ -36,23 +36,42 @@ When run subsequently, either manually or via a scheduled task, the script will:
 
 Following subsequent runs, Response Group Workflows do not need to be updated as the names of the Holiday Sets does not change.
 
-.PARAMETER
--Action [Create/Update] Declare whether the script should create new sets or Update existing sets
--PoolFQDN [String] Specify a pool on which to update holiday sets
--XMLFile [File location] If your server does not have access to download the XML file, you may provide it here
--DisplayOutput Once complete, display a new window with a list of all created holidays
+.PARAMETER -Action [Create/Update]
+    Declare whether the script should create new sets or Update existing sets
+
+.PARAMETER -PoolFQDN [String] 
+    Specify a pool on which to update holiday sets
+
+.PARAMETER -XMLFile [File location] 
+    If your server does not have access to download the XML file, you may provide it here
+
+.PARAMETER -HideOutput [switch] 
+    Once complete, the script will display a new IE window with a list of all created holidays unless this switch is invoked
+
+.PARAMETER -MailOutput [switch] 
+    Once complete, the script will mail an HTML file with holiday set details if this switch is invoked. Requires -notificationemail and -smtpserver for sending
+
+.PARAMETER -NotificationEmail 
+    When -Mailoutput is selected, email address to which the script will send its HTML output
+
+.PARAMETER -SMTPServer 
+    When -MailOutput is selected, this unauthenticated SMTP Relay will be used to send the email
 
 .EXAMPLE
-.\Set-AusGovHolidays.ps1 -Create
+.\Set-AusGovHolidays.ps1 -Action Create
 Detect pools where Skype for Business hosts Australian Response Group Workflows and Create new sets
 
 .EXAMPLE
-.\Set-AusGovHolidays.ps1 -Update -poolFQDN pool.contoso.com
-Update existing holiday sets on a specified pool
+.\Set-AusGovHolidays.ps1 -Action Create -poolFQDN pool.contoso.com
+Create new holiday sets on a specified pool
 
 .EXAMPLE
-.\Set-AusGovHolidays.ps1 -Update -poolFQDN pool.contoso.com -XMLFile c:\file.xml
+.\Set-AusGovHolidays.ps1 -Action Update -poolFQDN pool.contoso.com -XMLFile c:\file.xml
 Update existing holiday sets on a specified pool and use an offline XML file
+
+.EXAMPLE
+.\Set-AusGovHolidays.ps1 -Action Update -HideOutput -Mailoutput -NotificationEmail leigh@wespeakbinary.com.au -SMTPServer relay.wespeakbinary.com.au
+Update existing holiday sets on all auto-detected pools and send output via email to leigh@wespeakbinary.com.au
 
 .INPUTS
 The script does not support piped input
