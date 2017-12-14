@@ -133,3 +133,25 @@ $htmlout = $outputarray | Sort-Object Workflow | ConvertTo-HTML -head $a
 $htmlout -replace '&gt;','>' -replace '&lt;','<' -replace '&quot;','"' | Out-File .\AusGovWorkflows.htm
 Invoke-Expression .\AusGovWorkflows.htm
 
+$finalsets = get-csrgsholidayset | ? {$_.Name -notlike "*Ausgov*"}
+#$removesets = @()
+$removesets = [System.Collections.ArrayList]($finalsets.name)
+$flows = Get-CsRgsWorkflow
+Write-Host "The following old sets exist in the environment:" -ForegroundColor Yellow
+$removesets
+Write-Host "Testing if any of these sets are still in use:" -ForegroundColor Yellow
+foreach ($finalset in $finalsets) {
+    foreach ($flow in $flows) {
+        if ($flow.HolidaySetIDList -contains $finalset.identity) {
+            Write-Host "`t" $flow.name "contains" $finalset.name -ForegroundColor Green
+            $removesets.remove($finalset.name)
+            }
+    }
+}
+
+Write-Host "Deleting unused old sets:" -ForegroundColor Yellow
+$removesets | fl name
+
+foreach ($set in $removesets) {
+    get-csrgsholidayset -name $set | Remove-CsRgsHolidaySet
+    }
