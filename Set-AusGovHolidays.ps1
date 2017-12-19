@@ -260,24 +260,24 @@ $a = $a + "</style>"
 if ($Action.Equals('Update') -eq $true) {
     Update-Holidays
     if ($HideOutput -ne $true) {
-        Display-Holidays | Sort-Object StartDate | ConvertTo-HTML -head $a | Out-File c:\nexon\AusGovHolidays.htm
-        Invoke-Expression c:\nexon\AusGovHolidays.htm
+        Display-Holidays | Sort-Object StartDate | ConvertTo-HTML -head $a | Out-File .\AusGovHolidays.htm
+        Invoke-Expression .\AusGovHolidays.htm
     } elseif ($mailoutput -eq $true) {
-        Display-Holidays | Sort-Object StartDate | ConvertTo-HTML -head $a | Out-File c:\nexon\AusGovHolidays.htm
+        Display-Holidays | Sort-Object StartDate | ConvertTo-HTML -head $a | Out-File .\AusGovHolidays.htm
         $mailfrom = "holidays@" + (Get-CsSipDomain | Where-Object {$_.IsDefault -eq $true}).identity
-        $body = get-content c:\nexon\AusGovHolidays.htm -raw
+        $body = get-content .\AusGovHolidays.htm -raw
         Send-MailMessage -To $notificationemail -From $mailfrom -SmtpServer $smtpserver `
         -Body $body -BodyAsHtml -Subject "Set-AusGovHolidays Completion Notification"
     }
 } else {
     Create-Holidays
     if ($HideOutput -ne $true) {
-        Display-Holidays | Sort-Object StartDate | ConvertTo-HTML -head $a | Out-File c:\nexon\AusGovHolidays.htm
-        Invoke-Expression c:\nexon\AusGovHolidays.htm
+        Display-Holidays | Sort-Object StartDate | ConvertTo-HTML -head $a | Out-File .\AusGovHolidays.htm
+        Invoke-Expression .\AusGovHolidays.htm
     } elseif ($mailoutput -eq $true) {
-        Display-Holidays | Sort-Object StartDate | ConvertTo-HTML -head $a | Out-File c:\nexon\AusGovHolidays.htm
+        Display-Holidays | Sort-Object StartDate | ConvertTo-HTML -head $a | Out-File .\AusGovHolidays.htm
         $mailfrom = "holidays@" + (Get-CsSipDomain | Where-Object {$_.IsDefault -eq $true}).identity
-        $body = get-content c:\nexon\AusGovHolidays.htm -raw
+        $body = get-content .\AusGovHolidays.htm -raw
         Send-MailMessage -To $notificationemail -From $mailfrom -SmtpServer $smtpserver `
         -Body $body -BodyAsHtml -Subject "Set-AusGovHolidays Completion Notification"
     }
