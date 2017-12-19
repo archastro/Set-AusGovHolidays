@@ -1,3 +1,26 @@
+<#
+.SYNOPSIS
+This script updates existing workflows with new holiday sets based on Set-AusGovHolidays.ps1
+.NOTES
+V1.0 - Initial script tested and verified in a lab environment
+.DESCRIPTION
+Looks for response group workflows in your environment which have an existing name of "New South Wales," for example, and replaces
+the holiday set assigned by that workflow with "NSW Public Holidays (AusGov)" as per the Set-AusGovHolidays.ps1 script
+
+.PARAMETERS None
+    At this stage, the script has no parameters
+
+.EXAMPLE
+.\Set-AusGovWorkflows.ps1
+Update workflows with new sets
+
+.INPUTS
+The script does not support piped input
+.OUTPUTS
+The script produces a grid view output of what's been deployed in HTML format. Failures are highlighted to make them easy to spot.
+.LINK
+http://wespeakbinary.com.au
+#>
 $flows = Get-CsRgsWorkflow
 $flows = $flows | Sort-Object Name
 $sets = Get-CsRgsHolidaySet
@@ -110,3 +133,25 @@ $htmlout = $outputarray | Sort-Object Workflow | ConvertTo-HTML -head $a
 $htmlout -replace '&gt;','>' -replace '&lt;','<' -replace '&quot;','"' | Out-File .\AusGovWorkflows.htm
 Invoke-Expression .\AusGovWorkflows.htm
 
+$finalsets = get-csrgsholidayset | ? {$_.Name -notlike "*Ausgov*"}
+#$removesets = @()
+$removesets = [System.Collections.ArrayList]($finalsets.name)
+$flows = Get-CsRgsWorkflow
+Write-Host "The following old sets exist in the environment:" -ForegroundColor Yellow
+$removesets
+Write-Host "Testing if any of these sets are still in use:" -ForegroundColor Yellow
+foreach ($finalset in $finalsets) {
+    foreach ($flow in $flows) {
+        if ($flow.HolidaySetIDList -contains $finalset.identity) {
+            Write-Host "`t" $flow.name "contains" $finalset.name -ForegroundColor Green
+            $removesets.remove($finalset.name)
+            }
+    }
+}
+
+Write-Host "Deleting unused old sets:" -ForegroundColor Yellow
+$removesets | fl name
+
+foreach ($set in $removesets) {
+    get-csrgsholidayset -name $set | Remove-CsRgsHolidaySet
+    }
