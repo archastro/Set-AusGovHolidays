@@ -252,13 +252,8 @@ function Display-Holidays {
 
 # Construct HTML components for display/email
 $a = "<style>"
-$a = $a + "BODY{background-color:#ffffff;}"
-$a = $a + "TABLE{border-width: 1px;border-style: solid;border-color: black;border-collapse: collapse;}"
-$a = $a + "TH{border-width: 1px;padding: 1px;border-style: solid;border-color: black;}"
-$a = $a + "TD{border-width: 1px;padding: 5px;border-style: solid;border-color: black;}"
+$a = $a + 'table{font-family: monospace;border-collapse:collapse;width:100%}td,th{border:1px solid #ddd;padding:8px}tr:nth-child(even){background-color:#f2f2f2}tr:hover{background-color:#ddd}th{padding-top:12px;padding-bottom:12px;text-align:left;background-color:#4CAF50;color:#fff}'
 $a = $a + "</style>"
-
-# Main program loop
 
 # Main program loop
 
@@ -269,7 +264,7 @@ if ($Action.Equals('Update') -eq $true) {
         Invoke-Expression c:\nexon\AusGovHolidays.htm
     } elseif ($mailoutput -eq $true) {
         Display-Holidays | Sort-Object StartDate | ConvertTo-HTML -head $a | Out-File c:\nexon\AusGovHolidays.htm
-        $mailfrom = "holidays@" + (Get-CsSipDomain | ? {$_.IsDefault -eq $true}).identity
+        $mailfrom = "holidays@" + (Get-CsSipDomain | Where-Object {$_.IsDefault -eq $true}).identity
         $body = get-content c:\nexon\AusGovHolidays.htm -raw
         Send-MailMessage -To $notificationemail -From $mailfrom -SmtpServer $smtpserver `
         -Body $body -BodyAsHtml -Subject "Set-AusGovHolidays Completion Notification"
@@ -277,12 +272,12 @@ if ($Action.Equals('Update') -eq $true) {
 } else {
     Create-Holidays
     if ($HideOutput -ne $true) {
-        Display-Holidays | Sort-Object StartDate | ConvertTo-HTML -head $a | Out-File .\AusGovHolidays.htm
-        Invoke-Expression .\AusGovHolidays.htm
+        Display-Holidays | Sort-Object StartDate | ConvertTo-HTML -head $a | Out-File c:\nexon\AusGovHolidays.htm
+        Invoke-Expression c:\nexon\AusGovHolidays.htm
     } elseif ($mailoutput -eq $true) {
-        Display-Holidays | Sort-Object StartDate | ConvertTo-HTML -head $a | Out-File .\AusGovHolidays.htm
-        $mailfrom = "holidays@" + (Get-CsSipDomain | ? {$_.IsDefault -eq $true}).identity
-        $body = get-content .\AusGovHolidays.htm -raw
+        Display-Holidays | Sort-Object StartDate | ConvertTo-HTML -head $a | Out-File c:\nexon\AusGovHolidays.htm
+        $mailfrom = "holidays@" + (Get-CsSipDomain | Where-Object {$_.IsDefault -eq $true}).identity
+        $body = get-content c:\nexon\AusGovHolidays.htm -raw
         Send-MailMessage -To $notificationemail -From $mailfrom -SmtpServer $smtpserver `
         -Body $body -BodyAsHtml -Subject "Set-AusGovHolidays Completion Notification"
     }
