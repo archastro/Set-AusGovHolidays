@@ -176,7 +176,7 @@ function Create-Holidays {
                 $HolidayName = [regex]::replace($event.holidaytitle, "`t", "")
                 $name = $event.jurisdiction.toupper() + " " + $HolidayName + " " + $event.year
                 Write-Host "`t`tAdding $name ($date $starttime to $enddate $endtime)" -ForegroundColor DarkGreen
-                $i = new-csrgsholiday -startdate "$date $starttime" -enddate "$date $endtime" -name "$name"
+                $i = new-csrgsholiday -startdate "$date $starttime" -enddate "$enddate $endtime" -name "$name"
                 $holidays += $i
             }
         # Create the new set
