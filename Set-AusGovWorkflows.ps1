@@ -37,9 +37,9 @@ $sets = Get-CsRgsHolidaySet
     $oldsets = $sets | ? {$_.Name -notlike "*AusGov*"} 
         $oldnsw = $oldsets | ? {$_.Name -like "*New South Wales*"}
         $oldvic = $oldsets | ? {$_.Name -like "*Victoria*"}
-        $oldqld = $oldsets | ? {$_.Name -like "*Queensland*"}
+        $oldqld = $oldsets | ? {$_.Name -like "2017-Queensland"}
         $oldtas = $oldsets | ? {$_.Name -like "*Tasmani*"}
-        $oldact = $oldsets | ? {$_.Name -like "*Australian*"}
+        $oldact = $oldsets | ? {$_.Name -like "*ACT*"}
         $oldnt = $oldsets | ? {$_.Name -like "*Northern*"}
         $oldsa = $oldsets | ? {$_.Name -like "*South Australia*"}
         $oldwa = $oldsets | ? {$_.Name -like "*Western*"}
@@ -119,8 +119,8 @@ foreach ($flow in $flows) {
         $output | Add-Member -type NoteProperty -Name Workflow -Value $flow.name
         $output | Add-Member -type NoteProperty -Name SipAddress -Value $flow.primaryuri
         $output | Add-Member -type NoteProperty -Name LineURI -Value $flow.lineuri
-        $output | Add-Member -type NoteProperty -Name OldSet -Value '<span style="background-color:#FF0000;">Empty or Unknown</span>'
-        $output | Add-Member -type NoteProperty -Name NewSet -Value '<span style="background-color:#FF0000;">Check and assign manually</span>'
+        $output | Add-Member -type NoteProperty -Name OldSet -Value '<span style="background-color:#FF0000;">Empty</span>'
+        $output | Add-Member -type NoteProperty -Name NewSet -Value '<span style="background-color:#FF0000;">No action required</span>'
         }
     $outputarray += $output
 }
